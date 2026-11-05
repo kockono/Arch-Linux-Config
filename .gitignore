@@ -1,0 +1,6 @@
+# Installation artifacts and local secrets must never enter this repository.
+*.pkg.tar.zst
+.env*
+*.sqlite*
+*.db
+node_modules/
