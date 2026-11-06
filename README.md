@@ -28,6 +28,12 @@ Visual Studio Code is also installed by `bootstrap.sh --apply`: it installs Flat
 
 To use Powerlevel10k in VS Code Flatpak, open VS Code once and create user settings, then preview `bash vscode-terminal.sh` and apply with `bash vscode-terminal.sh --apply`. This opt-in step adds a `zsh (host)` terminal profile using Flatpak's bundled `/app/bin/host-spawn` PTY bridge and `/usr/bin/zsh -l`, makes it the default, and selects **MesloLGS Nerd Font Mono**. Close any existing integrated terminal and open a new one. Do not use `flatpak-spawn --host` as the interactive shell launcher: its missing controlling PTY can break Backspace, Ctrl keys, and job control. Other VS Code settings and terminal profiles are preserved. The updater accepts strict JSON `settings.json` only; if you have JSONC comments or trailing commas, it refuses to rewrite the file and you must add the profile manually in VS Code settings.
 
+## Optional: agent-browser
+
+Preview with `bash agent-browser.sh`, then install for your user with `bash agent-browser.sh --apply`. This installs [agent-browser](https://github.com/vercel-labs/agent-browser) v0.41.2 from the public npm registry into `~/.local` and downloads its Chrome for Testing browser. Node.js 22+ is required. It does not need sudo, reuse npm credentials, or run npm lifecycle scripts. Add `~/.local/bin` to your `PATH` if necessary, then check `agent-browser --version` and try `agent-browser open https://example.com` followed by `agent-browser close`.
+
+This opt-in step is separate from `bootstrap.sh`; no browser profile or account is connected automatically. It uses a separate browser session, not your existing Chrome sign-ins. Run `bash tests/agent-browser-test.sh` for mocked, offline installer checks.
+
 ## Optional: Hermes Agent (manual installation)
 
 Hermes Agent is **not** installed by `bootstrap.sh`. On Arch Linux x86_64, the [official CLI installation guide](https://hermes-agent.nousresearch.com/docs/getting-started/installation) uses its source installer. Review the installer before running it; it downloads and prepares a separate Python/Node runtime and may install browser or computer-use components.
