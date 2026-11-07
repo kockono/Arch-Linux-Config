@@ -101,6 +101,7 @@ grep -q 'Visual Studio Code.*Flatpak' "$scratch/plan"
 grep -q 'DBeaver Community' "$scratch/plan"
 grep -q 'Obsidian' "$scratch/plan"
 grep -q 'rclone' "$scratch/plan"
+grep -q 'KIO GDrive' "$scratch/plan"
 if bash "$repo/bootstrap.sh" --warp-package "$scratch/missing.pkg.tar.zst" > "$scratch/out" 2> "$scratch/err"; then
   echo 'dry run ignored explicitly invalid Warp path' >&2
   exit 1
@@ -180,6 +181,7 @@ grep -q '^sudo pacman -S --needed mpv clang cmake ninja$' "$scratch/calls"
 grep -qx 'sudo pacman -S --needed dbeaver' "$scratch/calls"
 grep -qx 'sudo pacman -S --needed obsidian' "$scratch/calls"
 grep -qx 'sudo pacman -S --needed rclone' "$scratch/calls"
+grep -qx 'sudo pacman -S --needed kio-gdrive' "$scratch/calls"
 grep -qx 'sudo pacman -S --needed flatpak' "$scratch/calls"
 grep -qx 'flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo' "$scratch/calls"
 grep -qx 'flatpak install --user --assumeyes --noninteractive flathub com.visualstudio.code' "$scratch/calls"

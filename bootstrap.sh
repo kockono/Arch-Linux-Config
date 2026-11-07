@@ -29,6 +29,7 @@ Visual Studio Code is installed for the current user from Flathub using Flatpak.
 DBeaver Community is installed from the official Arch repositories.
 Obsidian is installed from the official Arch repositories.
 rclone is installed from the official Arch repositories; cloud accounts are configured manually.
+KIO GDrive is installed from the official Arch repositories for KDE access to Google Drive.
 EOF
 }
 while (($#)); do
@@ -98,6 +99,7 @@ Arch setup plan:
   11. Install DBeaver Community from the official Arch repositories.
   12. Install Obsidian from the official Arch repositories.
   13. Install rclone from the official Arch repositories for cloud synchronization.
+  14. Install KIO GDrive from the official Arch repositories for KDE cloud access.
   KDE appearance is separate: see kde.sh --help.
 EOF
 if [[ $apply == false ]]; then
@@ -181,6 +183,7 @@ sudo pacman -S --needed mpv clang cmake ninja
 sudo pacman -S --needed dbeaver
 sudo pacman -S --needed obsidian
 sudo pacman -S --needed rclone
+sudo pacman -S --needed kio-gdrive
 sudo pacman -S --needed flatpak
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user --assumeyes --noninteractive flathub com.visualstudio.code

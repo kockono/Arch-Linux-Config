@@ -55,6 +55,8 @@ Launch it from the application menu or run `dbeaver`. Create connections manuall
 
 `bootstrap.sh --apply` installs [rclone](https://rclone.org/drive/) from the official Arch repositories. To install it separately, run `sudo pacman -Syu --needed rclone`, which also upgrades installed packages. Configure Google Drive authorization yourself with `rclone config`; the bootstrap does not access your account or enable synchronization automatically. Bidirectional synchronization can propagate deletions: review the [bisync documentation](https://rclone.org/bisync/) and back up your data before configuring it.
 
+The bootstrap also installs [KIO GDrive](https://apps.kde.org/kio_gdrive/) for accessing Google Drive in Dolphin. To install it separately, run `sudo pacman -Syu --needed kio-gdrive` (this also upgrades installed packages), then add your Google account in KDE System Settings under Online Accounts. KIO GDrive accesses files in the cloud; it does not automatically synchronize a local folder.
+
 ## Visual Studio Code
 Visual Studio Code is also installed by `bootstrap.sh --apply`: it installs Flatpak with pacman, adds Flathub for the current user if absent, and installs `com.visualstudio.code` with its required runtimes. Existing installations are retained. Launch it from the application menu or with `flatpak run com.visualstudio.code`. This is the Flathub distribution, not an Arch-native package; its sandbox can affect access to host development tools.
 
