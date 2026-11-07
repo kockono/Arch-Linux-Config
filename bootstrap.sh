@@ -26,6 +26,9 @@ Zoom is installed from AUR with yay. If standalone docker-compose is installed,
 --replace-compose explicitly permits replacing it with Docker Desktop's Compose plugin.
 The script does not sign in to accounts or run Gentle AI's interactive installer.
 Visual Studio Code is installed for the current user from Flathub using Flatpak.
+DBeaver Community is installed from the official Arch repositories.
+Obsidian is installed from the official Arch repositories.
+rclone is installed from the official Arch repositories; cloud accounts are configured manually.
 EOF
 }
 while (($#)); do
@@ -92,6 +95,9 @@ Arch setup plan:
   8. Register Engram with OpenCode and check the Gentle AI install plan.
   9. Finish Gentle AI selection and account sign-in manually; RTK hooks remain off.
   10. Install Visual Studio Code via Flatpak from the current user's Flathub remote.
+  11. Install DBeaver Community from the official Arch repositories.
+  12. Install Obsidian from the official Arch repositories.
+  13. Install rclone from the official Arch repositories for cloud synchronization.
   KDE appearance is separate: see kde.sh --help.
 EOF
 if [[ $apply == false ]]; then
@@ -172,6 +178,9 @@ fi
 
 sudo pacman -Syu --needed git github-cli opencode go nodejs npm piper openrgb discord coolercontrol
 sudo pacman -S --needed mpv clang cmake ninja
+sudo pacman -S --needed dbeaver
+sudo pacman -S --needed obsidian
+sudo pacman -S --needed rclone
 sudo pacman -S --needed flatpak
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user --assumeyes --noninteractive flathub com.visualstudio.code
