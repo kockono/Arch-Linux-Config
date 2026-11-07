@@ -11,6 +11,24 @@ A local-first bootstrap for Git, GitHub CLI, OpenCode v2, Gemini CLI, Google Ant
 5. Follow the printed steps to run Gentle AI's interactive component installer, sign in to GitHub with `gh auth login`, and verify both doctors. Credentials, Git identity, OpenCode settings, and personal memory are deliberately **not** copied.
 6. Optionally preview KDE changes with `bash kde.sh`, then apply with `bash kde.sh --apply` from a Plasma desktop session.
 
+## Optional: Sweet folders with Candy icons
+
+Preview with `bash sweet-folders.sh`, then apply with `bash sweet-folders.sh --apply` as your regular user. This selects purple folder icons from [Sweet-folders](https://github.com/EliverLara/Sweet-folders), inheriting [Candy](https://github.com/EliverLara/candy-icons) application icons. Missing themes are downloaded from pinned upstream commits and checked against recorded SHA-256 hashes (not independently signed upstream checksums). Existing theme installations are preserved. No sudo or upstream install scripts are used.
+
+The script backs up an existing `~/.config/kdeglobals`, changes only its icon theme, and leaves panels, wallpaper, and window styling unchanged. It is independent of `bootstrap.sh` and `kde.sh`, so it also works with multiple panels. Reopen Dolphin if icons have not refreshed. To undo the selection, choose Candy or Breeze in System Settings > Colors & Themes > Icons, or restore the printed `kdeglobals` backup. Installed assets remain in `~/.local/share/icons/Sweet-Purple` and `candy-icons`.
+
+Check without touching your desktop: `bash tests/sweet-folders-test.sh`.
+
+## Optional: animated wallpaper (Plasma 6)
+
+Preview with `bash wallpaper.sh`, then install with `bash wallpaper.sh --apply` as your regular user. This installs [Smart Video Wallpaper Reborn](https://github.com/luisbocanegra/plasma-smart-video-wallpaper-reborn) 2.16.0 from its official release using `kpackagetool6`, for your user only. The archive is checked against a pinned SHA-256 recorded from the release download, not an independently signed upstream checksum. An existing plugin installation is kept unchanged. This is separate from `bootstrap.sh` and `kde.sh`.
+
+Plasma 6 and Arch's `qt6-multimedia` and `qt6-multimedia-ffmpeg` packages are required. If missing, the script stops and prints the dependency installation command; it never invokes sudo. Your current wallpaper, lock screen, and login screen are not changed.
+
+To activate it, right-click the desktop → **Desktop and Wallpaper** → select **Smart Video Wallpaper Reborn** as the wallpaper type → add a local video → **Apply**. This plays video backgrounds; it does not provide Wallpaper Engine's Workshop catalog or all its interactive effects. Video playback can increase GPU usage and power consumption.
+
+Run `bash tests/wallpaper-test.sh` for isolated mocked checks. To remove the user plugin, switch back to an image wallpaper first, then run `kpackagetool6 --type Plasma/Wallpaper --remove luisbocanegra.smart.video.wallpaper.reborn`.
+
 ## Optional: Plasma notification position
 
 Preview with `bash notifications.sh`, then apply with `bash notifications.sh --apply` from your Plasma 6 session. This sets notification popups to the top right instead of beside the tray widget, without changing panels or per-application preferences. It backs up an existing `~/.config/plasmanotifyrc` and notifies Plasma of the setting change. It works independently of `kde.sh`, including on multi-panel desktops. Confirm the next popup stays inside the intended monitor; this does not force a particular monitor.
@@ -22,6 +40,20 @@ Run `bash tests/notifications-test.sh` for isolated mocked checks; it does not c
 Preview the standalone terminal setup with `bash terminal.sh`, then run `bash terminal.sh --apply` as your regular user. It installs Arch's `zsh` and `ttf-meslo-nerd` packages using sudo, clones the pinned Powerlevel10k v1.20.0 tag from [the official repository](https://github.com/romkatv/powerlevel10k), adds its lean prompt configuration to `~/.zshrc`, and changes your login shell with `chsh`. Log out and back in afterward. This does not run as part of `bootstrap.sh` and does not require Warp, Docker Desktop, or Antigravity packages.
 
 The script leaves an existing `~/.p10k.zsh` intact and appends a marked theme block to an existing `~/.zshrc` only once. It also keeps `~/.local/bin` and the existing NVM initialization available in Zsh. If you use Kitty, Konsole, or another terminal, select **MesloLGS Nerd Font Mono** as its font to display prompt icons correctly; the script does not rewrite terminal-emulator settings. Run `p10k configure` from Zsh later if you want to customize the default lean layout. Installing Arch packages requires working sudo authentication in your own terminal.
+
+## DBeaver Community
+
+DBeaver Community is installed by `bootstrap.sh --apply` from the [official Arch `dbeaver` package](https://archlinux.org/packages/extra/x86_64/dbeaver/). To install only the database client, preview `bash dbeaver.sh`, then run `bash dbeaver.sh --apply` as your regular user. This uses `sudo pacman -Syu --needed dbeaver`, which also upgrades installed Arch packages to avoid a partial upgrade; sudo authentication and package confirmation remain interactive.
+
+Launch it from the application menu or run `dbeaver`. Create connections manually; no database server is installed and no connections or credentials are configured by these scripts. DBeaver may download a database driver when you first connect. Run `bash tests/dbeaver-test.sh` for mocked checks without installing packages.
+
+## Obsidian
+
+`bootstrap.sh --apply` installs Obsidian from the official Arch repositories. To install it separately, run `sudo pacman -Syu --needed obsidian`; this also upgrades installed packages to avoid a partial upgrade. Launch it from the application menu or run `obsidian`. Create or open your vault manually.
+
+## Google Drive synchronization
+
+`bootstrap.sh --apply` installs [rclone](https://rclone.org/drive/) from the official Arch repositories. To install it separately, run `sudo pacman -Syu --needed rclone`, which also upgrades installed packages. Configure Google Drive authorization yourself with `rclone config`; the bootstrap does not access your account or enable synchronization automatically. Bidirectional synchronization can propagate deletions: review the [bisync documentation](https://rclone.org/bisync/) and back up your data before configuring it.
 
 ## Visual Studio Code
 Visual Studio Code is also installed by `bootstrap.sh --apply`: it installs Flatpak with pacman, adds Flathub for the current user if absent, and installs `com.visualstudio.code` with its required runtimes. Existing installations are retained. Launch it from the application menu or with `flatpak run com.visualstudio.code`. This is the Flathub distribution, not an Arch-native package; its sandbox can affect access to host development tools.
